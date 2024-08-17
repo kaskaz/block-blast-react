@@ -1,30 +1,44 @@
+const BLOCK_IDS= ["block1", "block2", "block3"];
 
-const MoveBox = (entities: any, { input }: { input: any }) => {
-  let { name, payload } = input.find((x: any) => x.name === "onMouseDown" || x.name === "onMouseUp" || x.name === "onMouseMove") || {};
+const DragBlock = (entities: any, { input }: { input: any }) => {
+  const { name, payload } = input.find((x: any) => x.name === "onMouseDown") || {};
+  
+  if (name === "onMouseDown" && payload) {
+    const blockId = payload.target.id;
 
-  const box1 = entities["box1"];
-
-  if (name === "onMouseDown") {
-    if(!box1.selected) {
-      if (payload.target.id == "box1") {
-        box1.selected = true;
-      }
-    } else {
-      box1.x = payload.pageX;
-      box1.y = payload.pageY;
-    }    
-  } else if(name === "onMouseUp") {
-    if (box1.selected) {
-      box1.selected = false;
-    }
-  } else if(name === "onMouseMove") {
-    if (box1.selected) {
-      box1.x = payload.pageX;
-      box1.y = payload.pageY;
-    }
+    if (BLOCK_IDS.some(id => id == blockId)) {
+      entities["state"].selected = blockId;
+    }  
   }
 
   return entities;
 };
 
-export { MoveBox };
+const DropBlock = (entities: any, { input }: { input: any }) => {
+  const { name, payload } = input.find((x: any) => x.name === "onMouseUp") || {};
+  const blockId = entities["state"].selected; 
+
+  if (name === "onMouseUp" && payload) {
+    if (BLOCK_IDS.some(id => id == blockId)) {
+      entities["state"].selected = "";
+    }  
+  }
+
+  return entities;
+};
+
+const MoveBlock = (entities: any, { input }: { input: any }) => {
+  const { name, payload } = input.find((x: any) => x.name === "onMouseMove") || {};
+  const blockId = entities["state"].selected; 
+
+  if (name === "onMouseMove" && payload) {
+    if (BLOCK_IDS.some(id => id == blockId)) {
+      entities[blockId].x = payload.pageX;
+      entities[blockId].y = payload.pageY;
+    }  
+  }
+
+  return entities;
+};
+
+export { DragBlock, DropBlock, MoveBlock };
