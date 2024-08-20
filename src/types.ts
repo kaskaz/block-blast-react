@@ -7,6 +7,7 @@ type BlockConfig = {
 type Space = {
   x: number
   y: number
+  occupied: boolean
 }
 
 export type { BlockConfig, Space };

@@ -21,12 +21,21 @@ const DragBlock = (entities: any, { input }: { input: any }) => {
 
 const DropBlock = (entities: any, { input }: { input: any }) => {
   const { name, payload } = input.find((x: any) => x.name === "onMouseUp") || {};
-  const blockId = entities["state"].selected; 
+  const blockId = entities["state"].selected;
 
   if (name === "onMouseUp" && payload) {
     if (hasBlockId(blockId)) {
       if (entities["state"].isOnTarget) {
-        
+        for (let i = 0; i < entities["state"].spacesOnTarget.length; i++) {
+          let spaceId = entities["state"].spacesOnTarget[i];
+          let space = (entities["board"].spaces as Map<string, Space>).get(spaceId);
+          
+          if (space) {
+            space.occupied = true;
+          }
+          
+          entities[blockId].available = false;
+        }
       } else {
         const blockConfig = BLOCKS.find(x => x.id == blockId);
         entities[blockId].x = blockConfig?.initialX;
@@ -56,7 +65,7 @@ const MoveBlock = (entities: any, { input }: { input: any }) => {
 
 const TargetSpace = (entities: any, { input }: { input: any }) => {
   const blockId = entities["state"].selected;
-  const spaces = entities["board"].spaces;
+  const spaces = [...entities["board"].spaces.entries()];
   const spacesOnTarget = [];
 
   if (hasBlockId(blockId)) {
@@ -65,13 +74,16 @@ const TargetSpace = (entities: any, { input }: { input: any }) => {
     let blockCenterY = block.y - BOARD_COORDINATES.y;
 
     for (let i = 0; i < spaces.length; i++) {
-      const space = spaces[i] as Space;
-      let spaceCenterX = space.x + (BLOCK_SIZE/2);
-      let spaceCenterY = space.y + (BLOCK_SIZE/2);
-      let distance = Math.sqrt(Math.pow(blockCenterX - spaceCenterX, 2) + Math.pow(blockCenterY - spaceCenterY, 2));
+      const space = spaces[i][1] as Space;
+      
+      if (!space.occupied) {
+        let spaceCenterX = space.x + (BLOCK_SIZE/2);
+        let spaceCenterY = space.y + (BLOCK_SIZE/2);
+        let distance = Math.sqrt(Math.pow(blockCenterX - spaceCenterX, 2) + Math.pow(blockCenterY - spaceCenterY, 2));
 
-      if (distance < BLOCK_SIZE/2) {
-        spacesOnTarget.push(space);
+        if (distance < BLOCK_SIZE/2) {
+          spacesOnTarget.push(spaces[i][0]);
+        }
       }
     }
 
