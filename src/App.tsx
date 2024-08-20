@@ -1,6 +1,7 @@
 import { GameEngine } from 'react-game-engine';
 import { Block, Board } from "./renderers";
 import { DragBlock, DropBlock, MoveBlock } from "./systems";
+import { BLOCKS } from './values';
 
 function App() {
   return (
@@ -8,11 +9,11 @@ function App() {
       style={{ width: 800, height: 600, backgroundColor: "blue" }}
       systems={[DragBlock, DropBlock, MoveBlock]}
       entities={{
-        state: { selected: "" },
+        state: { selected: "", isOnTarget: false },
         board: { x: 50, y: 50, renderer: <Board />},
-        block1: {x: 100, y: 500, id: "block1", selected: false, renderer: <Block />},
-        block2: {x: 220, y: 500, id: "block2", selected: false, renderer: <Block />},
-        block3: {x: 350, y: 500, id: "block3", selected: false, renderer: <Block />}
+        block1: {x: BLOCKS[0].initialX, y: BLOCKS[0].initialY, id: BLOCKS[0].id, selected: false, renderer: <Block />},
+        block2: {x: BLOCKS[1].initialX, y: BLOCKS[1].initialY, id: BLOCKS[1].id, selected: false, renderer: <Block />},
+        block3: {x: BLOCKS[2].initialX, y: BLOCKS[2].initialY, id: BLOCKS[2].id, selected: false, renderer: <Block />}
       }}>
     </GameEngine>
   );

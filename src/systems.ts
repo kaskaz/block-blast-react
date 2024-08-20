@@ -1,4 +1,8 @@
-const BLOCK_IDS= ["block1", "block2", "block3"];
+import { BLOCKS } from "./values";
+
+const hasBlockId = (blockId: string): boolean => {
+  return BLOCKS.map(b => b.id).some(id => id == blockId);
+}
 
 const DragBlock = (entities: any, { input }: { input: any }) => {
   const { name, payload } = input.find((x: any) => x.name === "onMouseDown") || {};
@@ -6,7 +10,7 @@ const DragBlock = (entities: any, { input }: { input: any }) => {
   if (name === "onMouseDown" && payload) {
     const blockId = payload.target.id;
 
-    if (BLOCK_IDS.some(id => id == blockId)) {
+    if (hasBlockId(blockId)) {
       entities["state"].selected = blockId;
     }  
   }
@@ -19,7 +23,15 @@ const DropBlock = (entities: any, { input }: { input: any }) => {
   const blockId = entities["state"].selected; 
 
   if (name === "onMouseUp" && payload) {
-    if (BLOCK_IDS.some(id => id == blockId)) {
+    if (hasBlockId(blockId)) {
+      if (entities["state"].isOnTarget) {
+        // place block
+      } else {
+        const blockConfig = BLOCKS.find(x => x.id == blockId);
+        entities[blockId].x = blockConfig?.initialX;
+        entities[blockId].y = blockConfig?.initialY;
+      }
+
       entities["state"].selected = "";
     }  
   }
@@ -32,7 +44,7 @@ const MoveBlock = (entities: any, { input }: { input: any }) => {
   const blockId = entities["state"].selected; 
 
   if (name === "onMouseMove" && payload) {
-    if (BLOCK_IDS.some(id => id == blockId)) {
+    if (hasBlockId(blockId)) {
       entities[blockId].x = payload.pageX;
       entities[blockId].y = payload.pageY;
     }  
