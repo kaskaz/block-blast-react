@@ -1,5 +1,9 @@
 import { BlockConfig } from "./types";
 
+const BOARD_COORDINATES = { x: 50, y: 50 };
+
+const BLOCK_SIZE = 50;
+
 const BLOCKS: BlockConfig[] = [
   {
     id: "block1",
@@ -18,4 +22,4 @@ const BLOCKS: BlockConfig[] = [
   }
 ];
 
-export { BLOCKS };
+export { BOARD_COORDINATES, BLOCKS, BLOCK_SIZE };

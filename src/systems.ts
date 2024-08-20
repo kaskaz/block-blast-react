@@ -1,4 +1,5 @@
-import { BLOCKS } from "./values";
+import { Space } from "./types";
+import { BLOCK_SIZE, BLOCKS, BOARD_COORDINATES } from "./values";
 
 const hasBlockId = (blockId: string): boolean => {
   return BLOCKS.map(b => b.id).some(id => id == blockId);
@@ -25,7 +26,7 @@ const DropBlock = (entities: any, { input }: { input: any }) => {
   if (name === "onMouseUp" && payload) {
     if (hasBlockId(blockId)) {
       if (entities["state"].isOnTarget) {
-        // place block
+        
       } else {
         const blockConfig = BLOCKS.find(x => x.id == blockId);
         entities[blockId].x = blockConfig?.initialX;
@@ -53,4 +54,32 @@ const MoveBlock = (entities: any, { input }: { input: any }) => {
   return entities;
 };
 
-export { DragBlock, DropBlock, MoveBlock };
+const TargetSpace = (entities: any, { input }: { input: any }) => {
+  const blockId = entities["state"].selected;
+  const spaces = entities["board"].spaces;
+  const spacesOnTarget = [];
+
+  if (hasBlockId(blockId)) {
+    const block = entities[blockId];
+    let blockCenterX = block.x - BOARD_COORDINATES.x;
+    let blockCenterY = block.y - BOARD_COORDINATES.y;
+
+    for (let i = 0; i < spaces.length; i++) {
+      const space = spaces[i] as Space;
+      let spaceCenterX = space.x + (BLOCK_SIZE/2);
+      let spaceCenterY = space.y + (BLOCK_SIZE/2);
+      let distance = Math.sqrt(Math.pow(blockCenterX - spaceCenterX, 2) + Math.pow(blockCenterY - spaceCenterY, 2));
+
+      if (distance < BLOCK_SIZE/2) {
+        spacesOnTarget.push(space);
+      }
+    }
+
+    entities["state"].spacesOnTarget = spacesOnTarget;
+    entities["state"].isOnTarget = spacesOnTarget.length > 0;
+  }  
+
+  return entities;
+}
+
+export { DragBlock, DropBlock, MoveBlock, TargetSpace };

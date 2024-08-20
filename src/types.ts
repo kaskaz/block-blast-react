@@ -4,4 +4,9 @@ type BlockConfig = {
   initialY: number
 };
 
-export type { BlockConfig };
+type Space = {
+  x: number
+  y: number
+}
+
+export type { BlockConfig, Space };
