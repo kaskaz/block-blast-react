@@ -94,4 +94,21 @@ const TargetSpace = (entities: any, { input }: { input: any }) => {
   return entities;
 }
 
-export { DragBlock, DropBlock, MoveBlock, TargetSpace };
+const NextLevel = (entities: any, { input }: { input: any }) => {
+  const areAllUnavailable = BLOCKS
+    .map(b => b.id)
+    .map(id => entities[id].available)
+    .every(e => !e);
+  
+  if(areAllUnavailable) {
+    BLOCKS.forEach(block => {
+      entities[block.id].x = block.initialX;
+      entities[block.id].y = block.initialY;
+      entities[block.id].available = true
+    });
+  }
+  
+  return entities;
+}
+
+export { DragBlock, DropBlock, MoveBlock, TargetSpace, NextLevel };

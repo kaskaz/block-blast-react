@@ -1,6 +1,6 @@
 import { GameEngine } from 'react-game-engine';
 import { Block, Board } from "./renderers";
-import { DragBlock, DropBlock, MoveBlock, TargetSpace } from "./systems";
+import { DragBlock, DropBlock, MoveBlock, TargetSpace, NextLevel } from "./systems";
 import { BLOCK_SIZE, BLOCKS, BOARD_COORDINATES } from './values';
 import { Space } from './types';
 
@@ -20,7 +20,7 @@ function App() {
   return (
     <GameEngine
       style={{ width: 500, height: 600, backgroundColor: "blue" }}
-      systems={[DragBlock, DropBlock, MoveBlock, TargetSpace]}
+      systems={[DragBlock, DropBlock, MoveBlock, TargetSpace, NextLevel]}
       entities={{
         state: { selected: "", isOnTarget: false, spacesOnTarget: [] },
         board: { x: BOARD_COORDINATES.x, y: BOARD_COORDINATES.y, spaces: initializeBoard(), renderer: <Board />},
