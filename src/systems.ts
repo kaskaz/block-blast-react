@@ -1,5 +1,5 @@
-import { Space } from "./types";
-import { BLOCK_SIZE, BLOCKS, BOARD_COORDINATES } from "./values";
+import { Space, State } from "./types";
+import { BLOCK_SIZE, BLOCKS, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES } from "./values";
 
 const hasBlockId = (blockId: string): boolean => {
   return BLOCKS.map(b => b.id).some(id => id == blockId);
@@ -111,4 +111,59 @@ const NextLevel = (entities: any, { input }: { input: any }) => {
   return entities;
 }
 
-export { DragBlock, DropBlock, MoveBlock, TargetSpace, NextLevel };
+const Score = (entities: any, { input }: { input: any }) => {
+  const filledLines = [], filledColumns = [];
+
+  // find filled columns and lines
+  for (let column = 1; column <= BLOCKS_PER_COLUMNS; column++) {
+    let isColumnFilled = true;
+
+    for (let line = 1; line <= BLOCKS_PER_LINE; line++) {
+      if (!entities["board"].spaces.get(`${column}${line}`).occupied) {
+        isColumnFilled = false;
+        break;
+      }
+    }
+    
+    if (isColumnFilled) {
+      filledColumns.push(column);
+    }
+  }
+
+  for (let line = 1; line <= BLOCKS_PER_LINE; line++) {
+    let isLineFilled = true;
+
+    for (let col = 1; col <= BLOCKS_PER_COLUMNS; col++) {
+      if (!entities["board"].spaces.get(`${col}${line}`).occupied) {
+        isLineFilled = false;
+        break;
+      }
+    }
+    
+    if (isLineFilled) {
+      filledLines.push(line);
+    }
+  }
+
+  // clean filled columns and lines
+  filledColumns.forEach(column => {
+    for (let line = 1; line <= BLOCKS_PER_LINE; line++) {
+      entities["board"].spaces.get(`${column}${line}`).occupied = false;        
+    }
+  });
+
+  filledLines.forEach(line => {
+    for (let column = 1; column <= BLOCKS_PER_COLUMNS; column++) {
+      entities["board"].spaces.get(`${column}${line}`).occupied = false;        
+    }
+  });
+
+  // score
+  const score = (entities["state"] as State).score + filledColumns.length*BLOCKS_PER_COLUMNS + filledLines.length*BLOCKS_PER_LINE;
+  (entities["state"] as State).score = score;
+  entities["scorePanel"].score = score;
+  
+  return entities;
+}
+
+export { DragBlock, DropBlock, MoveBlock, TargetSpace, NextLevel, Score };

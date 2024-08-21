@@ -49,4 +49,8 @@ function Block(props: any) {
   );
 }
 
-export { Block, Board };
+function ScorePanel(props: any) {
+  return <div style={{ color: "white"}}>score: {props.score}</div>
+}
+
+export { Block, Board, ScorePanel };

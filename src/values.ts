@@ -2,6 +2,10 @@ import { BlockConfig } from "./types";
 
 const BOARD_COORDINATES = { x: 50, y: 50 };
 
+const BLOCKS_PER_LINE = 8;
+
+const BLOCKS_PER_COLUMNS = 8;
+
 const BLOCK_SIZE = 50;
 
 const BLOCKS: BlockConfig[] = [
@@ -22,4 +26,4 @@ const BLOCKS: BlockConfig[] = [
   }
 ];
 
-export { BOARD_COORDINATES, BLOCKS, BLOCK_SIZE };
+export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, BLOCKS, BLOCK_SIZE };

@@ -10,4 +10,11 @@ type Space = {
   occupied: boolean
 }
 
-export type { BlockConfig, Space };
+type State = {
+  selected: string
+  isOnTarget: boolean
+  spacesOnTarget: string[]
+  score: number
+}
+
+export type { BlockConfig, Space, State };
