@@ -32,6 +32,7 @@ const DropBlock = (entities: any, { input }: { input: any }) => {
           
           if (space) {
             space.occupied = true;
+            (entities["state"] as State).lastBlocksFilled++;
           }
           
           entities[blockId].available = false;
@@ -158,10 +159,16 @@ const Score = (entities: any, { input }: { input: any }) => {
     }
   });
 
-  // score
-  const score = (entities["state"] as State).score + filledColumns.length*BLOCKS_PER_COLUMNS + filledLines.length*BLOCKS_PER_LINE;
-  (entities["state"] as State).score = score;
-  entities["scorePanel"].score = score;
+  // score 
+  (entities["state"] as State).filledRowsAndColumns += filledColumns.length + filledLines.length;
+  (entities["state"] as State).score += (entities["state"] as State).lastBlocksFilled 
+  
+  if (filledColumns.length > 0 || filledLines.length > 0) {
+    (entities["state"] as State).score += 10*(entities["state"] as State).filledRowsAndColumns;
+  }
+  
+  entities["scorePanel"].score = (entities["state"] as State).score;
+  (entities["state"] as State).lastBlocksFilled = 0;
   
   return entities;
 }

@@ -22,14 +22,14 @@ function App() {
       style={{ width: 500, height: 600, backgroundColor: "blue" }}
       systems={[DragBlock, DropBlock, MoveBlock, TargetSpace, NextLevel, Score]}
       entities={{
-        state: {selected: "", isOnTarget: false, spacesOnTarget: [], score: 0},
+        state: {selected: "", isOnTarget: false, spacesOnTarget: [], lastBlocksFilled: 0, score: 0, filledRowsAndColumns: 0},
         board: {x: BOARD_COORDINATES.x, y: BOARD_COORDINATES.y, spaces: initializeBoard(), renderer: <Board />},
         block1: {x: BLOCKS[0].initialX, y: BLOCKS[0].initialY, id: BLOCKS[0].id, selected: false, available: true, renderer: <Block />},
         block2: {x: BLOCKS[1].initialX, y: BLOCKS[1].initialY, id: BLOCKS[1].id, selected: false, available: true, renderer: <Block />},
         block3: {x: BLOCKS[2].initialX, y: BLOCKS[2].initialY, id: BLOCKS[2].id, selected: false, available: true, renderer: <Block />},
         scorePanel: {x: 10, y: 10, score: 0, renderer: <ScorePanel /> }
-      }}>
-    </GameEngine>
+      }}
+    />
   );
 }
 

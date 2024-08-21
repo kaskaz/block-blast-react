@@ -14,7 +14,9 @@ type State = {
   selected: string
   isOnTarget: boolean
   spacesOnTarget: string[]
+  lastBlocksFilled: number 
   score: number
+  filledRowsAndColumns: number
 }
 
 export type { BlockConfig, Space, State };
