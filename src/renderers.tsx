@@ -17,9 +17,7 @@ function Board(props: any) {
               top: space[1].y,
               userSelect: "none"
             }}
-          >
-            <p>({space[1].x+(BLOCK_SIZE/2)},{space[1].y+(BLOCK_SIZE/2)})</p>
-          </div>
+          />
         )
       })}
     </div>
@@ -43,9 +41,7 @@ function Block(props: any) {
         top: y,
         userSelect: "none"
       }}
-    >
-      <p>({props.x-50},{props.y-50})</p>
-    </div>
+    />
   );
 }
 
