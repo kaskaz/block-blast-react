@@ -1,5 +1,5 @@
 import { Space, State } from "./types";
-import { BLOCK_SIZE, BLOCKS, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from "./values";
+import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from "./values";
 
 const hasBlockId = (blockId: string): boolean => {
   return BLOCKS.map(b => b.id).some(id => id == blockId);
@@ -87,8 +87,9 @@ const DropBlockShape = (entities: any, { input }: { input: any }) => {
           entities[blockId].available = false;
         }
       } else {
-        entities[blockId].x = 100;
-        entities[blockId].y = 600;
+        const blockShapeConfig = SHAPES.find(x => x.id == blockId);
+        entities[blockId].x = blockShapeConfig?.initialX;
+        entities[blockId].y = blockShapeConfig?.initialY;
       }
 
       entities["state"].selected = "";
@@ -212,6 +213,7 @@ const NextLevel = (entities: any, { input }: { input: any }) => {
   
   if(areAllUnavailable) {
     SHAPES.forEach(shape => {
+      entities[shape.id].shape = BLOCK_SHAPES[Math.floor(Math.random()*BLOCK_SHAPES.length)];
       entities[shape.id].x = shape.initialX;
       entities[shape.id].y = shape.initialY;
       entities[shape.id].available = true
