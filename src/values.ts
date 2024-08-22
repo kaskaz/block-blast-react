@@ -26,6 +26,24 @@ const BLOCKS: BlockConfig[] = [
   }
 ];
 
+const SHAPES: BlockConfig[] = [
+  {
+    id: "shape1",
+    initialX: 95,
+    initialY: 600
+  },
+  {
+    id: "shape2",
+    initialX: 255,
+    initialY: 600
+  },
+  {
+    id: "shape3",
+    initialX: 415,
+    initialY: 600
+  }
+];
+
 const BLOCK_SHAPES = [
   // dot
   [(x: number, y: number) => { return { x: x, y: y }}],
@@ -38,4 +56,4 @@ const BLOCK_SHAPES = [
   ]
 ];
 
-export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, BLOCKS, BLOCK_SIZE, BLOCK_SHAPES };
+export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, BLOCKS, SHAPES, BLOCK_SIZE, BLOCK_SHAPES };
