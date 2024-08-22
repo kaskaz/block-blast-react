@@ -17,6 +17,8 @@ function App() {
     return _spaces;
   }
 
+  const randomizeBlockShape = () => BLOCK_SHAPES[Math.floor(Math.random()*BLOCK_SHAPES.length)];
+
   return (
     <GameEngine
       style={{ width: 500, height: 600, backgroundColor: "blue" }}
@@ -27,9 +29,9 @@ function App() {
         block1: {x: BLOCKS[0].initialX, y: BLOCKS[0].initialY, id: BLOCKS[0].id, selected: false, available: true, renderer: <Block />},
         block2: {x: BLOCKS[1].initialX, y: BLOCKS[1].initialY, id: BLOCKS[1].id, selected: false, available: true, renderer: <Block />},
         block3: {x: BLOCKS[2].initialX, y: BLOCKS[2].initialY, id: BLOCKS[2].id, selected: false, available: true, renderer: <Block />},
-        shape1: {x: SHAPES[0].initialX, y: SHAPES[0].initialY, id: SHAPES[0].id, shape: BLOCK_SHAPES[1], selected: false, available: true, renderer: <BlockShape />},
-        shape2: {x: SHAPES[1].initialX, y: SHAPES[1].initialY, id: SHAPES[1].id, shape: BLOCK_SHAPES[1], selected: false, available: true, renderer: <BlockShape />},
-        shape3: {x: SHAPES[2].initialX, y: SHAPES[2].initialY, id: SHAPES[2].id, shape: BLOCK_SHAPES[1], selected: false, available: true, renderer: <BlockShape />},
+        shape1: {x: SHAPES[0].initialX, y: SHAPES[0].initialY, id: SHAPES[0].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
+        shape2: {x: SHAPES[1].initialX, y: SHAPES[1].initialY, id: SHAPES[1].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
+        shape3: {x: SHAPES[2].initialX, y: SHAPES[2].initialY, id: SHAPES[2].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
         scorePanel: {x: 10, y: 10, score: 0, renderer: <ScorePanel /> }
       }}
     />
