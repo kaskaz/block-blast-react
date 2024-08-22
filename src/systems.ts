@@ -1,12 +1,12 @@
 import { Space, State } from "./types";
-import { BLOCK_SIZE, BLOCKS, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES } from "./values";
+import { BLOCK_SIZE, BLOCKS, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from "./values";
 
 const hasBlockId = (blockId: string): boolean => {
   return BLOCKS.map(b => b.id).some(id => id == blockId);
 }
 
 const hasBlockShapeId = (blockId: string): boolean => {
-  return ["shape1"].some(id => id == blockId);
+  return SHAPES.map(b => b.id).some(id => id == blockId);
 }
 
 const DragBlock = (entities: any, { input }: { input: any }) => {
@@ -192,7 +192,7 @@ const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
 }
 
 const NextLevel = (entities: any, { input }: { input: any }) => {
-  const areAllUnavailable = BLOCKS
+  let areAllUnavailable = BLOCKS
     .map(b => b.id)
     .map(id => entities[id].available)
     .every(e => !e);
@@ -202,6 +202,19 @@ const NextLevel = (entities: any, { input }: { input: any }) => {
       entities[block.id].x = block.initialX;
       entities[block.id].y = block.initialY;
       entities[block.id].available = true
+    });
+  }
+
+  areAllUnavailable = SHAPES
+    .map(b => b.id)
+    .map(id => entities[id].available)
+    .every(e => !e);
+  
+  if(areAllUnavailable) {
+    SHAPES.forEach(shape => {
+      entities[shape.id].x = shape.initialX;
+      entities[shape.id].y = shape.initialY;
+      entities[shape.id].available = true
     });
   }
   
