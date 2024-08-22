@@ -26,4 +26,16 @@ const BLOCKS: BlockConfig[] = [
   }
 ];
 
-export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, BLOCKS, BLOCK_SIZE };
+const BLOCK_SHAPES = [
+  // dot
+  [(x: number, y: number) => { return { x: x, y: y }}],
+  // normal S
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ]
+];
+
+export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, BLOCKS, BLOCK_SIZE, BLOCK_SHAPES };

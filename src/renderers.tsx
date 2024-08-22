@@ -45,8 +45,36 @@ function Block(props: any) {
   );
 }
 
+function BlockShape(props: any) {
+  return (
+    <>
+      {props.shape.map((fn: (x: number, y: number) => { x: number, y: number }, key: number) => {
+        const coordinates = fn(props.x, props.y);
+        const x = coordinates.x - BLOCK_SIZE / 2;
+        const y = coordinates.y - BLOCK_SIZE / 2;
+        return (
+          <div
+            key={key}
+            id={props.id}
+            style={{
+              display: props.available ? 'inline': 'none',
+              position: "absolute",
+              left: x,
+              top: y,
+              width: BLOCK_SIZE,
+              height: BLOCK_SIZE,
+              backgroundColor: "red",
+              userSelect: "none"
+            }}
+          />
+        );
+      })}
+    </>
+  );
+}
+
 function ScorePanel(props: any) {
   return <div style={{ color: "white"}}>score: {props.score}</div>
 }
 
-export { Block, Board, ScorePanel };
+export { Block, BlockShape, Board, ScorePanel };
