@@ -53,6 +53,55 @@ const BLOCK_SHAPES = [
     (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
     (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
     (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ],
+  // vertical S
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ],
+  // normal Z
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+  ],
+  // vertical Z
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+  ],
+  // normal L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ],
+  // horizontal right L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ],
+  // horizontal left L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ],
+  // upside down L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y-BLOCK_SIZE }},
   ]
 ];
 
