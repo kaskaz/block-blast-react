@@ -94,9 +94,37 @@ const BLOCK_SHAPES = [
     (x: number, y: number) => { return { x: x, y: y }},
     (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
     (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
-    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y-BLOCK_SIZE }},
   ],
   // upside down L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y-BLOCK_SIZE }},
+  ],
+  // mirrored L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ],
+  // mirrored horizontal right L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y-BLOCK_SIZE }},
+  ],
+  // mirrored horizontal left L
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y+BLOCK_SIZE }},
+  ],
+  // mirrored upside down L
   [
     (x: number, y: number) => { return { x: x, y: y }},
     (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
