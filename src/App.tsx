@@ -1,5 +1,5 @@
 import { GameEngine } from 'react-game-engine';
-import { Block, BlockShape, Board, ScorePanel } from "./renderers";
+import { Block, BlockShape, Board, ScorePanel, TargetSpaceShadow } from "./renderers";
 import { DragBlock, DropBlock, MoveBlock, TargetSpace, NextLevel, Score, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver } from "./systems";
 import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from './values';
 import { Space } from './types';
@@ -65,6 +65,7 @@ function App() {
         shape1: {x: SHAPES[0].initialX, y: SHAPES[0].initialY, id: SHAPES[0].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
         shape2: {x: SHAPES[1].initialX, y: SHAPES[1].initialY, id: SHAPES[1].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
         shape3: {x: SHAPES[2].initialX, y: SHAPES[2].initialY, id: SHAPES[2].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
+        shadow: {x: 0, y: 0, shape: [], renderer: <TargetSpaceShadow />},
         scorePanel: {x: 100, y: 10, score: 0, renderer: <ScorePanel /> }
       })
       setRunning(true);
@@ -88,6 +89,7 @@ function App() {
           shape1: {x: SHAPES[0].initialX, y: SHAPES[0].initialY, id: SHAPES[0].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
           shape2: {x: SHAPES[1].initialX, y: SHAPES[1].initialY, id: SHAPES[1].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
           shape3: {x: SHAPES[2].initialX, y: SHAPES[2].initialY, id: SHAPES[2].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape />},
+          shadow: {spaces: [], renderer: <TargetSpaceShadow />},
           scorePanel: {x: 100, y: 10, score: 0, renderer: <ScorePanel /> }
         }}
         running={running}

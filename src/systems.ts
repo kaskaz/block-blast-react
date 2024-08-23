@@ -93,6 +93,7 @@ const DropBlockShape = (entities: any, { input }: { input: any }) => {
       }
 
       entities["state"].selected = "";
+      entities["shadow"].spaces = [];
     }  
   }
 
@@ -185,9 +186,17 @@ const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
       }
     }
 
-    entities["state"].spacesOnTarget = spacesOnTarget.length == centeredCoordinates.length ? spacesOnTarget : [];
-    entities["state"].isOnTarget = spacesOnTarget.length == centeredCoordinates.length;
-  }  
+    let isOnTarget = spacesOnTarget.length == centeredCoordinates.length;
+
+    entities["shadow"].spaces = isOnTarget ? spacesOnTarget
+      .map(id => entities["board"].spaces.get(id))
+      .map(space => { return { x: space.x + BOARD_COORDINATES.x, y: space.y + BOARD_COORDINATES.y } }) : [];
+
+    entities["state"].spacesOnTarget = isOnTarget ? spacesOnTarget : [];
+    entities["state"].isOnTarget = isOnTarget;
+  }
+
+  
 
   return entities;
 }
