@@ -33,13 +33,6 @@ function App() {
   const [running, setRunning] = useState(true);
   const [showGameOver, setShowGameOver] = useState(false);
 
-  useEffect(() => {
-    if (gameEngineRef && gameEngineRef.current) {
-      setRunning(false);
-      setShowGameOver(true);
-    }
-  }, [gameEngineRef]);
-
   const initializeBoard = (): Map<string, Space> => {
     let _spaces: Map<string, Space> = new Map();
 
