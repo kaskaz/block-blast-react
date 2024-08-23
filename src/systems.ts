@@ -284,4 +284,56 @@ const Score = (entities: any, { input }: { input: any }) => {
   return entities;
 }
 
-export { DragBlock, DragBlockShape, DropBlock, DropBlockShape, MoveBlock, MoveBlockShape, TargetSpace, TargetSpaceByShape, NextLevel, Score };
+const GameOver = (entities: any, { input }: { input: any }) => {
+  const nonFilledSpaces: Space[] = [];
+  let hasSpacesAvailable = false;
+
+  for(const space of entities["board"].spaces.values()) {
+    if (!space.occupied) {
+      nonFilledSpaces.push(space);
+    }
+  }
+
+  SHAPES
+    .map(shape => shape.id)
+    .forEach(shapeId => {
+      const blockShape = entities[shapeId];
+
+      if (!blockShape.available || hasSpacesAvailable) {
+        return;
+      }
+
+      for (const refSpace of nonFilledSpaces) {
+        const spacesOnTarget: Space[] = [];
+
+        if (hasSpacesAvailable) {
+          return;
+        }
+
+        const centeredCoordinates = blockShape.shape
+          .map((fn: any) => fn(refSpace.x + (BLOCK_SIZE/2), refSpace.y + (BLOCK_SIZE/2)))
+          .map((c: { x: number, y: number }) => { return { x: c.x - BOARD_COORDINATES.x, y: c.y - BOARD_COORDINATES.y } });
+  
+        for (const space of nonFilledSpaces) {
+          let spaceCenterX = space.x + (BLOCK_SIZE/2);
+          let spaceCenterY = space.y + (BLOCK_SIZE/2);
+          let distances = centeredCoordinates.map((c: { x: number, y: number }) => Math.sqrt(Math.pow(c.x - spaceCenterX, 2) + Math.pow(c.y - spaceCenterY, 2)));
+          let minDistance = distances.reduce((acc: number, curr: number) => acc < curr ? acc : curr, distances[0]);
+  
+          if (minDistance < BLOCK_SIZE/2) {
+            spacesOnTarget.push(space);
+          }
+        }
+        
+        hasSpacesAvailable = centeredCoordinates.length == spacesOnTarget.length;
+      }
+    });
+
+  if (!hasSpacesAvailable) {
+    entities["state"].onGameOver();
+  }
+   
+  return entities;
+}
+
+export { DragBlock, DragBlockShape, DropBlock, DropBlockShape, MoveBlock, MoveBlockShape, TargetSpace, TargetSpaceByShape, NextLevel, Score, GameOver };
