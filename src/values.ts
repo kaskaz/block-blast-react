@@ -130,6 +130,161 @@ const BLOCK_SHAPES = [
     (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
     (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
     (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y-BLOCK_SIZE }},
+  ],
+  // small bottom left corner 
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }}
+  ],
+  // small bottom right corner 
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }}
+  ],
+  // small upper left corner
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }}
+  ],
+  // small upper right corner
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }}
+  ],
+  // large bottom left corner 
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y-2*BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+2*BLOCK_SIZE, y: y }}
+  ],
+  // large bottom right corner 
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y-2*BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-2*BLOCK_SIZE, y: y }}
+  ],
+  // large upper left corner
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+2*BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+2*BLOCK_SIZE, y: y }}
+  ],
+  // large upper right corner
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+2*BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-2*BLOCK_SIZE, y: y }}
+  ],
+  // vertical line 2
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }}
+  ],
+  // vertical line 3
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+2*BLOCK_SIZE }}
+  ],
+  // vertical line 4
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+2*BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+3*BLOCK_SIZE }}
+  ],
+  // vertical line 5
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+2*BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+3*BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+4*BLOCK_SIZE }}
+  ],
+  // horizontal line 2
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }}
+  ],
+  // horizontal line 3
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+2*BLOCK_SIZE, y: y }}
+  ],
+  // horizontal line 4
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+2*BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+3*BLOCK_SIZE, y: y }}
+  ],
+  // horizontal line 5
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+2*BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+3*BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+4*BLOCK_SIZE, y: y }}
+  ],
+  // small T normal
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }}
+  ],
+  // small T upside-down
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }}
+  ],
+  // small T rotate right
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }}
+  ],
+  // small T rotate left
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }}
+  ],
+  // 2-sided square
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y-BLOCK_SIZE }}
+  ],
+  // 3-sided square
+  [
+    (x: number, y: number) => { return { x: x, y: y }},
+    (x: number, y: number) => { return { x: x, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y-BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y }},
+    (x: number, y: number) => { return { x: x-BLOCK_SIZE, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x, y: y+BLOCK_SIZE }},
+    (x: number, y: number) => { return { x: x+BLOCK_SIZE, y: y+BLOCK_SIZE }}
   ]
 ];
 
