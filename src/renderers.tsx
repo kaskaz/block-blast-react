@@ -28,27 +28,6 @@ function Board(props: any) {
   );
 }
 
-function Block(props: any) {
-  const size = BLOCK_SIZE;
-  const x = props.x - size / 2;
-  const y = props.y - size / 2;
-  return (
-    <div
-      id={props.id}
-      style={{
-        display: props.available ? 'inline': 'none',
-        position: "absolute",
-        width: size,
-        height: size,
-        backgroundColor: "red",
-        left: x,
-        top: y,
-        userSelect: "none"
-      }}
-    />
-  );
-}
-
 function BlockShape(props: any) {
   return (
     <>
@@ -107,4 +86,4 @@ function ScorePanel(props: any) {
   return <div style={{ color: "white"}}>score: {props.score}</div>
 }
 
-export { Block, BlockShape, Board, ScorePanel, TargetSpaceShadow };
+export { BlockShape, Board, ScorePanel, TargetSpaceShadow };

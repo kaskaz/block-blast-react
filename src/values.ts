@@ -8,24 +8,6 @@ const BLOCKS_PER_COLUMNS = 8;
 
 const BLOCK_SIZE = 50;
 
-const BLOCKS: BlockConfig[] = [
-  {
-    id: "block1",
-    initialX: 100,
-    initialY: 500
-  },
-  {
-    id: "block2",
-    initialX: 220,
-    initialY: 500
-  },
-  {
-    id: "block3",
-    initialX: 350,
-    initialY: 500
-  }
-];
-
 const SHAPES: BlockConfig[] = [
   {
     id: "shape1",
@@ -288,4 +270,4 @@ const BLOCK_SHAPES = [
   ]
 ];
 
-export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, BLOCKS, SHAPES, BLOCK_SIZE, BLOCK_SHAPES };
+export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, SHAPES, BLOCK_SIZE, BLOCK_SHAPES };
