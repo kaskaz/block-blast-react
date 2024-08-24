@@ -14,7 +14,7 @@ type State = {
   selected: string
   isOnTarget: boolean
   spacesOnTarget: string[]
-  lastBlocksFilled: number 
+  lastBlocksFilled: number
   score: number
   filledRowsAndColumns: number
 }

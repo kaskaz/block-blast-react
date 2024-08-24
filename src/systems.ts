@@ -7,13 +7,13 @@ const hasBlockShapeId = (blockId: string): boolean => {
 
 const DragBlockShape = (entities: any, { input }: { input: any }) => {
   const { name, payload } = input.find((x: any) => x.name === "onMouseDown") || {};
-  
+
   if (name === "onMouseDown" && payload) {
     const blockId = payload.target.id;
 
     if (hasBlockShapeId(blockId)) {
       entities["state"].selected = blockId;
-    }  
+    }
   }
 
   return entities;
@@ -29,12 +29,12 @@ const DropBlockShape = (entities: any, { input }: { input: any }) => {
         for (let i = 0; i < entities["state"].spacesOnTarget.length; i++) {
           let spaceId = entities["state"].spacesOnTarget[i];
           let space = (entities["board"].spaces as Map<string, Space>).get(spaceId);
-          
+
           if (space) {
             space.occupied = true;
             (entities["state"] as State).lastBlocksFilled++;
           }
-          
+
           entities[blockId].available = false;
         }
       } else {
@@ -45,7 +45,7 @@ const DropBlockShape = (entities: any, { input }: { input: any }) => {
 
       entities["state"].selected = "";
       entities["shadow"].spaces = [];
-    }  
+    }
   }
 
   return entities;
@@ -53,13 +53,13 @@ const DropBlockShape = (entities: any, { input }: { input: any }) => {
 
 const MoveBlockShape = (entities: any, { input }: { input: any }) => {
   const { name, payload } = input.find((x: any) => x.name === "onMouseMove") || {};
-  const blockId = entities["state"].selected; 
+  const blockId = entities["state"].selected;
 
   if (name === "onMouseMove" && payload) {
     if (hasBlockShapeId(blockId)) {
       entities[blockId].x = payload.pageX;
       entities[blockId].y = payload.pageY;
-    }  
+    }
   }
 
   return entities;
@@ -79,14 +79,14 @@ const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
 
     for (let i = 0; i < spaces.length; i++) {
       const space = spaces[i][1] as Space;
-      
+
       if (!space.occupied) {
-        let spaceCenterX = space.x + (BLOCK_SIZE/2);
-        let spaceCenterY = space.y + (BLOCK_SIZE/2);
+        let spaceCenterX = space.x + (BLOCK_SIZE / 2);
+        let spaceCenterY = space.y + (BLOCK_SIZE / 2);
         let distances = centeredCoordinates.map((c: { x: number, y: number }) => Math.sqrt(Math.pow(c.x - spaceCenterX, 2) + Math.pow(c.y - spaceCenterY, 2)));
         let minDistance = distances.reduce((acc: number, curr: number) => acc < curr ? acc : curr, distances[0]);
 
-        if (minDistance < BLOCK_SIZE/2) {
+        if (minDistance < BLOCK_SIZE / 2) {
           spacesOnTarget.push(spaces[i][0]);
         }
       }
@@ -102,8 +102,6 @@ const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
     entities["state"].isOnTarget = isOnTarget;
   }
 
-  
-
   return entities;
 }
 
@@ -112,16 +110,16 @@ const NextLevel = (entities: any, { input }: { input: any }) => {
     .map(b => b.id)
     .map(id => entities[id].available)
     .every(e => !e);
-  
-  if(areAllUnavailable) {
+
+  if (areAllUnavailable) {
     SHAPES.forEach(shape => {
-      entities[shape.id].shape = BLOCK_SHAPES[Math.floor(Math.random()*BLOCK_SHAPES.length)];
+      entities[shape.id].shape = BLOCK_SHAPES[Math.floor(Math.random() * BLOCK_SHAPES.length)];
       entities[shape.id].x = shape.initialX;
       entities[shape.id].y = shape.initialY;
       entities[shape.id].available = true
     });
   }
-  
+
   return entities;
 }
 
@@ -138,7 +136,7 @@ const Score = (entities: any, { input }: { input: any }) => {
         break;
       }
     }
-    
+
     if (isColumnFilled) {
       filledColumns.push(column);
     }
@@ -153,7 +151,7 @@ const Score = (entities: any, { input }: { input: any }) => {
         break;
       }
     }
-    
+
     if (isLineFilled) {
       filledLines.push(line);
     }
@@ -162,27 +160,27 @@ const Score = (entities: any, { input }: { input: any }) => {
   // clean filled columns and lines
   filledColumns.forEach(column => {
     for (let line = 1; line <= BLOCKS_PER_LINE; line++) {
-      entities["board"].spaces.get(`${column}${line}`).occupied = false;        
+      entities["board"].spaces.get(`${column}${line}`).occupied = false;
     }
   });
 
   filledLines.forEach(line => {
     for (let column = 1; column <= BLOCKS_PER_COLUMNS; column++) {
-      entities["board"].spaces.get(`${column}${line}`).occupied = false;        
+      entities["board"].spaces.get(`${column}${line}`).occupied = false;
     }
   });
 
   // score 
   (entities["state"] as State).filledRowsAndColumns += filledColumns.length + filledLines.length;
-  (entities["state"] as State).score += (entities["state"] as State).lastBlocksFilled 
-  
+  (entities["state"] as State).score += (entities["state"] as State).lastBlocksFilled
+
   if (filledColumns.length > 0 || filledLines.length > 0) {
-    (entities["state"] as State).score += 10*(entities["state"] as State).filledRowsAndColumns;
+    (entities["state"] as State).score += 10 * (entities["state"] as State).filledRowsAndColumns;
   }
-  
+
   entities["scorePanel"].score = (entities["state"] as State).score;
   (entities["state"] as State).lastBlocksFilled = 0;
-  
+
   return entities;
 }
 
@@ -190,7 +188,7 @@ const GameOver = (entities: any, { input }: { input: any }) => {
   const nonFilledSpaces: Space[] = [];
   let hasSpacesAvailable = false;
 
-  for(const space of entities["board"].spaces.values()) {
+  for (const space of entities["board"].spaces.values()) {
     if (!space.occupied) {
       nonFilledSpaces.push(space);
     }
@@ -213,20 +211,20 @@ const GameOver = (entities: any, { input }: { input: any }) => {
         }
 
         const centeredCoordinates = blockShape.shape
-          .map((fn: any) => fn(refSpace.x + (BLOCK_SIZE/2), refSpace.y + (BLOCK_SIZE/2)))
+          .map((fn: any) => fn(refSpace.x + (BLOCK_SIZE / 2), refSpace.y + (BLOCK_SIZE / 2)))
           .map((c: { x: number, y: number }) => { return { x: c.x - BOARD_COORDINATES.x, y: c.y - BOARD_COORDINATES.y } });
-  
+
         for (const space of nonFilledSpaces) {
-          let spaceCenterX = space.x + (BLOCK_SIZE/2);
-          let spaceCenterY = space.y + (BLOCK_SIZE/2);
+          let spaceCenterX = space.x + (BLOCK_SIZE / 2);
+          let spaceCenterY = space.y + (BLOCK_SIZE / 2);
           let distances = centeredCoordinates.map((c: { x: number, y: number }) => Math.sqrt(Math.pow(c.x - spaceCenterX, 2) + Math.pow(c.y - spaceCenterY, 2)));
           let minDistance = distances.reduce((acc: number, curr: number) => acc < curr ? acc : curr, distances[0]);
-  
-          if (minDistance < BLOCK_SIZE/2) {
+
+          if (minDistance < BLOCK_SIZE / 2) {
             spacesOnTarget.push(space);
           }
         }
-        
+
         hasSpacesAvailable = centeredCoordinates.length == spacesOnTarget.length;
       }
     });
@@ -234,7 +232,7 @@ const GameOver = (entities: any, { input }: { input: any }) => {
   if (!hasSpacesAvailable) {
     entities["state"].onGameOver();
   }
-   
+
   return entities;
 }
 

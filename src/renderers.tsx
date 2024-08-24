@@ -17,7 +17,7 @@ function Board(props: any) {
               backgroundColor: space[1].occupied ? "green" : "yellow",
               width: BLOCK_SIZE,
               height: BLOCK_SIZE,
-              left: space[1].x, 
+              left: space[1].x,
               top: space[1].y,
               userSelect: "none"
             }}
@@ -40,7 +40,7 @@ function BlockShape(props: any) {
             key={key}
             id={props.id}
             style={{
-              display: props.available ? 'inline': 'none',
+              display: props.available ? 'inline' : 'none',
               position: "absolute",
               left: x,
               top: y,
@@ -70,7 +70,7 @@ function TargetSpaceShadow(props: any) {
               backgroundColor: "cyan",
               width: BLOCK_SIZE,
               height: BLOCK_SIZE,
-              left: space.x, 
+              left: space.x,
               top: space.y,
               zIndex: ZINDEX_OF_SHADOW,
               userSelect: "none"
@@ -83,7 +83,7 @@ function TargetSpaceShadow(props: any) {
 }
 
 function ScorePanel(props: any) {
-  return <div style={{ color: "white"}}>score: {props.score}</div>
+  return <div style={{ color: "white" }}>score: {props.score}</div>
 }
 
 export { BlockShape, Board, ScorePanel, TargetSpaceShadow };
