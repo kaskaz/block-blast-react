@@ -69,6 +69,7 @@ const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
   const blockId = entities["state"].selected;
   const spaces = [...entities["board"].spaces.entries()];
   const spacesOnTarget = [];
+  let isOnTarget = false;
 
   if (hasBlockShapeId(blockId)) {
     const block = entities[blockId];
@@ -92,15 +93,15 @@ const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
       }
     }
 
-    let isOnTarget = spacesOnTarget.length == centeredCoordinates.length;
-
-    entities["shadow"].spaces = isOnTarget ? spacesOnTarget
-      .map(id => entities["board"].spaces.get(id))
-      .map(space => { return { x: space.x + BOARD_COORDINATES.x, y: space.y + BOARD_COORDINATES.y } }) : [];
-
-    entities["state"].spacesOnTarget = isOnTarget ? spacesOnTarget : [];
-    entities["state"].isOnTarget = isOnTarget;
+    isOnTarget = spacesOnTarget.length == centeredCoordinates.length;
   }
+
+  entities["shadow"].spaces = isOnTarget ? spacesOnTarget
+    .map(id => entities["board"].spaces.get(id))
+    .map(space => { return { x: space.x + BOARD_COORDINATES.x, y: space.y + BOARD_COORDINATES.y } }) : [];
+
+  entities["state"].spacesOnTarget = isOnTarget ? spacesOnTarget : [];
+  entities["state"].isOnTarget = isOnTarget;
 
   return entities;
 }
@@ -119,6 +120,67 @@ const NextLevel = (entities: any, { input }: { input: any }) => {
       entities[shape.id].available = true
     });
   }
+
+  return entities;
+}
+
+const ScorePreview = (entities: any, { input }: { input: any }) => {
+  const previewSpaces: { x: number, y: number }[] = [];
+
+  if (entities["state"].isOnTarget) {
+    const columnIndexes = new Set();
+    const lineIndexes = new Set();
+    const spaces = entities["board"].spaces;
+
+    entities["state"].spacesOnTarget.forEach((space: string) => {
+      columnIndexes.add(space[0]);
+      lineIndexes.add(space[1]);
+    });
+
+    lineIndexes.forEach(line => {
+      const possibleLineSpaces = new Set<Space>();
+
+      for (let column = 1; column <= BLOCKS_PER_LINE; column++) {
+        let index = `${column}${line}`;
+        let space = spaces.get(index) as Space;
+
+        if (space.occupied || entities["state"].spacesOnTarget.some((s: string) => s == index)) {
+          possibleLineSpaces.add(space);
+        }
+      }
+
+      if (possibleLineSpaces.size == BLOCKS_PER_LINE) {
+        previewSpaces.push(
+          ...Array
+            .from(possibleLineSpaces.values())
+            .map((space: Space) => { return { x: space.x + BOARD_COORDINATES.x, y: space.y + BOARD_COORDINATES.y } })
+        );
+      }
+    });
+
+    columnIndexes.forEach(column => {
+      const possibleColumnSpaces = new Set<Space>();
+
+      for (let line = 1; line <= BLOCKS_PER_COLUMNS; line++) {
+        let index = `${column}${line}`;
+        let space = spaces.get(index) as Space;
+
+        if (space.occupied || entities["state"].spacesOnTarget.some((s: string) => s == index)) {
+          possibleColumnSpaces.add(space);
+        }
+      }
+
+      if (possibleColumnSpaces.size == BLOCKS_PER_COLUMNS) {
+        previewSpaces.push(
+          ...Array
+            .from(possibleColumnSpaces.values())
+            .map((space: Space) => { return { x: space.x + BOARD_COORDINATES.x, y: space.y + BOARD_COORDINATES.y } })
+        );
+      }
+    });
+  }
+
+  entities["preview"].spaces = previewSpaces;
 
   return entities;
 }
@@ -236,4 +298,4 @@ const GameOver = (entities: any, { input }: { input: any }) => {
   return entities;
 }
 
-export { DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, GameOver };
+export { DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, ScorePreview, GameOver };

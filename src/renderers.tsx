@@ -1,7 +1,8 @@
 import { BLOCK_SIZE } from "./values";
 
-const ZINDEX_OF_SHAPE = 2;
-const ZINDEX_OF_SHADOW = 1;
+const ZINDEX_OF_SHAPE = 3;
+const ZINDEX_OF_SHADOW = 2;
+const ZINDEX_OF_PREVIEW = 1;
 
 
 function Board(props: any) {
@@ -82,8 +83,33 @@ function TargetSpaceShadow(props: any) {
   );
 }
 
+function ScorePreviewHighlight(props: any) {
+  return (
+    <>
+      {props.spaces.map((space: { x: number, y: number }, key: number) => {
+        return (
+          <div
+            key={key}
+            style={{
+              position: "absolute",
+              border: "solid 1px black",
+              backgroundColor: "orange",
+              width: BLOCK_SIZE,
+              height: BLOCK_SIZE,
+              left: space.x,
+              top: space.y,
+              zIndex: ZINDEX_OF_PREVIEW,
+              userSelect: "none"
+            }}
+          />
+        );
+      })}
+    </>
+  );
+}
+
 function ScorePanel(props: any) {
   return <div style={{ color: "white" }}>score: {props.score}</div>
 }
 
-export { BlockShape, Board, ScorePanel, TargetSpaceShadow };
+export { BlockShape, Board, ScorePanel, TargetSpaceShadow, ScorePreviewHighlight };

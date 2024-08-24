@@ -1,6 +1,6 @@
 import { GameEngine } from 'react-game-engine';
-import { BlockShape, Board, ScorePanel, TargetSpaceShadow } from "./renderers";
-import { NextLevel, Score, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver } from "./systems";
+import { BlockShape, Board, ScorePanel, ScorePreviewHighlight, TargetSpaceShadow } from "./renderers";
+import { NextLevel, Score, ScorePreview, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver } from "./systems";
 import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from './values';
 import { Space } from './types';
 import { useRef, useState } from 'react';
@@ -55,6 +55,7 @@ function App() {
       shape2: { x: SHAPES[1].initialX, y: SHAPES[1].initialY, id: SHAPES[1].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape /> },
       shape3: { x: SHAPES[2].initialX, y: SHAPES[2].initialY, id: SHAPES[2].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape /> },
       shadow: { spaces: [], renderer: <TargetSpaceShadow /> },
+      preview: { spaces: [], renderer: <ScorePreviewHighlight /> },
       scorePanel: { x: 100, y: 10, score: 0, renderer: <ScorePanel /> }
     };
   }
@@ -83,7 +84,7 @@ function App() {
       <GameEngine
         ref={gameEngineRef}
         style={{ width: 500, height: 600, backgroundColor: "blue" }}
-        systems={[DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, GameOver]}
+        systems={[DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, ScorePreview, GameOver]}
         entities={entities()}
         running={running}
       />
