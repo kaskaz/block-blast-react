@@ -1,11 +1,25 @@
 import { Space, State } from "./types";
 import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from "./values";
 
+type SystemArgs = {
+  input: any[]
+  events: { type: string }[]
+  dispatch: (event: { type: string }) => void
+}
+
+enum EVENT {
+  BLOCK_PLACED = "blockplaced",
+  BOARD_CLEANED = "boardcleaned",
+  GAME_OVER = "gameover",
+  NEXT_MOVE = "nextmove",
+  NEW_BLOCKS = "newblocks"
+}
+
 const hasBlockShapeId = (blockId: string): boolean => {
   return SHAPES.map(b => b.id).some(id => id == blockId);
 }
 
-const DragBlockShape = (entities: any, { input }: { input: any }) => {
+const DragBlockShape = (entities: any, { input }: SystemArgs) => {
   const { name, payload } = input.find((x: any) => x.name === "onMouseDown") || {};
 
   if (name === "onMouseDown" && payload) {
@@ -19,7 +33,7 @@ const DragBlockShape = (entities: any, { input }: { input: any }) => {
   return entities;
 };
 
-const DropBlockShape = (entities: any, { input }: { input: any }) => {
+const DropBlockShape = (entities: any, { input, dispatch }: SystemArgs) => {
   const { name, payload } = input.find((x: any) => x.name === "onMouseUp") || {};
   const blockId = entities["state"].selected;
 
@@ -37,6 +51,8 @@ const DropBlockShape = (entities: any, { input }: { input: any }) => {
 
           entities[blockId].available = false;
         }
+
+        dispatch({ type: EVENT.BLOCK_PLACED });
       } else {
         const blockShapeConfig = SHAPES.find(x => x.id == blockId);
         entities[blockId].x = blockShapeConfig?.initialX;
@@ -51,7 +67,7 @@ const DropBlockShape = (entities: any, { input }: { input: any }) => {
   return entities;
 };
 
-const MoveBlockShape = (entities: any, { input }: { input: any }) => {
+const MoveBlockShape = (entities: any, { input }: SystemArgs) => {
   const { name, payload } = input.find((x: any) => x.name === "onMouseMove") || {};
   const blockId = entities["state"].selected;
 
@@ -65,7 +81,7 @@ const MoveBlockShape = (entities: any, { input }: { input: any }) => {
   return entities;
 };
 
-const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
+const TargetSpaceByShape = (entities: any, { input }: SystemArgs) => {
   const blockId = entities["state"].selected;
   const spaces = [...entities["board"].spaces.entries()];
   const spacesOnTarget = [];
@@ -106,7 +122,11 @@ const TargetSpaceByShape = (entities: any, { input }: { input: any }) => {
   return entities;
 }
 
-const NextLevel = (entities: any, { input }: { input: any }) => {
+const NextLevel = (entities: any, { events, dispatch }: SystemArgs) => {
+  if (!events.some(e => e.type == EVENT.BOARD_CLEANED)) {
+    return entities;
+  }
+
   const areAllUnavailable = SHAPES
     .map(b => b.id)
     .map(id => entities[id].available)
@@ -121,10 +141,12 @@ const NextLevel = (entities: any, { input }: { input: any }) => {
     });
   }
 
+  dispatch({ type: EVENT.NEXT_MOVE });
+
   return entities;
 }
 
-const ScorePreview = (entities: any, { input }: { input: any }) => {
+const ScorePreview = (entities: any, { input }: SystemArgs) => {
   const previewSpaces: { x: number, y: number }[] = [];
 
   if (entities["state"].isOnTarget) {
@@ -185,7 +207,11 @@ const ScorePreview = (entities: any, { input }: { input: any }) => {
   return entities;
 }
 
-const Score = (entities: any, { input }: { input: any }) => {
+const Score = (entities: any, { events, dispatch }: SystemArgs) => {
+  if (!events.some(e => e.type == EVENT.BLOCK_PLACED)) {
+    return entities;
+  }
+
   const filledLines = [], filledColumns = [];
 
   // find filled columns and lines
@@ -243,10 +269,16 @@ const Score = (entities: any, { input }: { input: any }) => {
   entities["scorePanel"].score = (entities["state"] as State).score;
   (entities["state"] as State).lastBlocksFilled = 0;
 
+  dispatch({ type: EVENT.BOARD_CLEANED });
+
   return entities;
 }
 
-const GameOver = (entities: any, { input }: { input: any }) => {
+const GameOver = (entities: any, { events, dispatch }: SystemArgs) => {
+  if (!events.some(e => e.type == EVENT.NEXT_MOVE)) {
+    return entities;
+  }
+
   const nonFilledSpaces: Space[] = [];
   let hasSpacesAvailable = false;
 
@@ -292,10 +324,10 @@ const GameOver = (entities: any, { input }: { input: any }) => {
     });
 
   if (!hasSpacesAvailable) {
-    entities["state"].onGameOver();
+    dispatch({ type: EVENT.GAME_OVER });
   }
 
   return entities;
 }
 
-export { DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, ScorePreview, GameOver };
+export { EVENT, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, ScorePreview, GameOver };

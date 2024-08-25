@@ -1,6 +1,6 @@
 import { GameEngine } from 'react-game-engine';
 import { BlockShape, Board, ScorePanel, ScorePreviewHighlight, TargetSpaceShadow } from "./renderers";
-import { NextLevel, Score, ScorePreview, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver } from "./systems";
+import { NextLevel, Score, ScorePreview, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver, EVENT } from "./systems";
 import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from './values';
 import { Space } from './types';
 import { useRef, useState } from 'react';
@@ -49,7 +49,7 @@ function App() {
 
   const entities = () => {
     return {
-      state: { selected: "", isOnTarget: false, spacesOnTarget: [], lastBlocksFilled: 0, score: 0, filledRowsAndColumns: 0, onGameOver: handleGameOver },
+      state: { selected: "", isOnTarget: false, spacesOnTarget: [], lastBlocksFilled: 0, score: 0, filledRowsAndColumns: 0 },
       board: { x: BOARD_COORDINATES.x, y: BOARD_COORDINATES.y, spaces: initializeBoard(), renderer: <Board /> },
       shape1: { x: SHAPES[0].initialX, y: SHAPES[0].initialY, id: SHAPES[0].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape /> },
       shape2: { x: SHAPES[1].initialX, y: SHAPES[1].initialY, id: SHAPES[1].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape /> },
@@ -60,7 +60,7 @@ function App() {
     };
   }
 
-  const handleGameOver = () => {
+  const gameOver = () => {
     if (gameEngineRef && gameEngineRef.current) {
       setRunning(false);
       setShowGameOver(true);
@@ -75,6 +75,19 @@ function App() {
     }
   }
 
+  const handleEvent = (event: { type: string }) => {
+    console.log("event:", event.type);
+
+    switch (event.type) {
+      case EVENT.GAME_OVER:
+        gameOver();
+        break;
+
+      default:
+        break;
+    }
+  }
+
   return (
     <>
       <GameOverPanel
@@ -86,6 +99,7 @@ function App() {
         style={{ width: 500, height: 600, backgroundColor: "blue" }}
         systems={[DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, ScorePreview, GameOver]}
         entities={entities()}
+        onEvent={handleEvent}
         running={running}
       />
     </>
