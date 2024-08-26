@@ -305,8 +305,7 @@ const GameOver = (entities: any, { events, dispatch }: SystemArgs) => {
         }
 
         const centeredCoordinates = blockShape.shape
-          .map((fn: any) => fn(refSpace.x + (BLOCK_SIZE / 2), refSpace.y + (BLOCK_SIZE / 2)))
-          .map((c: { x: number, y: number }) => { return { x: c.x - BOARD_COORDINATES.x, y: c.y - BOARD_COORDINATES.y } });
+          .map((fn: any) => fn(refSpace.x + (BLOCK_SIZE / 2), refSpace.y + (BLOCK_SIZE / 2)));
 
         for (const space of nonFilledSpaces) {
           let spaceCenterX = space.x + (BLOCK_SIZE / 2);
