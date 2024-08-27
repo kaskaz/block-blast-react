@@ -67,12 +67,14 @@ function Board(props: any) {
 }
 
 function BlockShape(props: any) {
+  const size = props.isDragged ? BLOCK_SIZE - 20 : BLOCK_SIZE - 20 - 10;
+  const blockSize = props.isDragged ? BLOCK_SIZE : BLOCK_SIZE - 10;
   return (
     <>
-      {props.shape.map((fn: (x: number, y: number) => { x: number, y: number }, key: number) => {
-        const coordinates = fn(props.x, props.y);
-        const x = coordinates.x - BLOCK_SIZE / 2;
-        const y = coordinates.y - BLOCK_SIZE / 2;
+      {props.shape.map((fn: (x: number, y: number, size: number) => { x: number, y: number }, key: number) => {
+        const coordinates = fn(props.x, props.y, blockSize);
+        const x = coordinates.x - size / 2;
+        const y = coordinates.y - size / 2;
         return (
           <div
             key={key}
@@ -83,8 +85,8 @@ function BlockShape(props: any) {
               left: x,
               top: y,
               zIndex: ZINDEX_OF_SHAPE,
-              width: BLOCK_SIZE - 20,
-              height: BLOCK_SIZE - 20,
+              width: size,
+              height: size,
               userSelect: "none",
               backgroundColor: "#3D60E2",
               borderTop: "10px solid #82ABFA",
@@ -159,12 +161,13 @@ function ScorePreviewHighlight(props: any) {
 function ScorePanel(props: any) {
   return (
     <div
-      style={{ 
+      style={{
         color: "white",
         fontFamily: "fantasy",
         fontSize: "xxx-large",
         textAlign: "center",
-        padding: 20
+        padding: 20,
+        userSelect: "none",
       }}
     >
       {props.score}

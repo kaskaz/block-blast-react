@@ -2,7 +2,7 @@ import { GameEngine } from 'react-game-engine';
 import { BlockShape, Board, ScorePanel, ScorePreviewHighlight, TargetSpaceShadow } from "./renderers";
 import { NextLevel, Score, ScorePreview, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver, EVENT } from "./systems";
 import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from './values';
-import { Space } from './types';
+import { BlockConfig, Space } from './types';
 import { useRef, useState } from 'react';
 
 function GameOverPanel({ show, onRestart }: { show: boolean, onRestart: () => void }) {
@@ -47,13 +47,26 @@ function App() {
 
   const randomizeBlockShape = () => BLOCK_SHAPES[Math.floor(Math.random() * BLOCK_SHAPES.length)];
 
+  const initializeBlockShape = (config: BlockConfig) => {
+    return {
+      id: config.id,
+      x: config.initialX,
+      y: config.initialY,
+      shape: randomizeBlockShape(),
+      selected: false,
+      isDragged: false,
+      available: true,
+      renderer: <BlockShape />
+    }
+  };
+
   const entities = () => {
     return {
       state: { selected: "", isOnTarget: false, spacesOnTarget: [], lastBlocksFilled: 0, score: 0, filledRowsAndColumns: 0 },
       board: { x: BOARD_COORDINATES.x, y: BOARD_COORDINATES.y, spaces: initializeBoard(), renderer: <Board /> },
-      shape1: { x: SHAPES[0].initialX, y: SHAPES[0].initialY, id: SHAPES[0].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape /> },
-      shape2: { x: SHAPES[1].initialX, y: SHAPES[1].initialY, id: SHAPES[1].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape /> },
-      shape3: { x: SHAPES[2].initialX, y: SHAPES[2].initialY, id: SHAPES[2].id, shape: randomizeBlockShape(), selected: false, available: true, renderer: <BlockShape /> },
+      shape1: initializeBlockShape(SHAPES[0]),
+      shape2: initializeBlockShape(SHAPES[1]),
+      shape3: initializeBlockShape(SHAPES[2]),
       shadow: { spaces: [], renderer: <TargetSpaceShadow /> },
       preview: { spaces: [], renderer: <ScorePreviewHighlight /> },
       scorePanel: { x: 100, y: 10, score: 0, renderer: <ScorePanel /> }

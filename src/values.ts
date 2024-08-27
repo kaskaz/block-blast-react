@@ -28,245 +28,245 @@ const SHAPES: BlockConfig[] = [
 
 const BLOCK_SHAPES = [
   // dot
-  [(x: number, y: number) => { return { x: x, y: y } }],
+  [(x: number, y: number, size: number) => { return { x: x, y: y } }],
   // normal S
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y + BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y + size } },
   ],
   // vertical S
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y + BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y + size } },
   ],
   // normal Z
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
   ],
   // vertical Z
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
   ],
   // normal L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y + BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y + size } },
   ],
   // horizontal right L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y + BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y + size } },
   ],
   // horizontal left L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y - BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y - size } },
   ],
   // upside down L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y - BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y - size } },
   ],
   // mirrored L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y + BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y + size } },
   ],
   // mirrored horizontal right L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y - BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y - size } },
   ],
   // mirrored horizontal left L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y + BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y + size } },
   ],
   // mirrored upside down L
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y - BLOCK_SIZE } },
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y - size } },
   ],
   // small bottom left corner 
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } }
   ],
   // small bottom right corner 
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } }
   ],
   // small upper left corner
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } }
   ],
   // small upper right corner
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } }
   ],
   // large bottom left corner 
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y - 2 * BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 2 * BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - 2 * size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 2 * size, y: y } }
   ],
   // large bottom right corner 
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y - 2 * BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - 2 * BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - 2 * size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - 2 * size, y: y } }
   ],
   // large upper left corner
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 2 * BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 2 * BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 2 * size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 2 * size, y: y } }
   ],
   // large upper right corner
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 2 * BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - 2 * BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 2 * size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - 2 * size, y: y } }
   ],
   // vertical line 2
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } }
   ],
   // vertical line 3
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 2 * BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 2 * size } }
   ],
   // vertical line 4
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 2 * BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 3 * BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 2 * size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 3 * size } }
   ],
   // vertical line 5
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 2 * BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 3 * BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + 4 * BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 2 * size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 3 * size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + 4 * size } }
   ],
   // horizontal line 2
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } }
   ],
   // horizontal line 3
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 2 * BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 2 * size, y: y } }
   ],
   // horizontal line 4
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 2 * BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 3 * BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 2 * size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 3 * size, y: y } }
   ],
   // horizontal line 5
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 2 * BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 3 * BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + 4 * BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 2 * size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 3 * size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + 4 * size, y: y } }
   ],
   // small T normal
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } }
   ],
   // small T upside-down
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } }
   ],
   // small T rotate right
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } }
   ],
   // small T rotate left
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } }
   ],
   // 2-sided square
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y - BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y - size } }
   ],
   // 3-sided square
   [
-    (x: number, y: number) => { return { x: x, y: y } },
-    (x: number, y: number) => { return { x: x, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y - BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y } },
-    (x: number, y: number) => { return { x: x - BLOCK_SIZE, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x, y: y + BLOCK_SIZE } },
-    (x: number, y: number) => { return { x: x + BLOCK_SIZE, y: y + BLOCK_SIZE } }
+    (x: number, y: number, size: number) => { return { x: x, y: y } },
+    (x: number, y: number, size: number) => { return { x: x, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y - size } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y } },
+    (x: number, y: number, size: number) => { return { x: x - size, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x, y: y + size } },
+    (x: number, y: number, size: number) => { return { x: x + size, y: y + size } }
   ]
 ];
 

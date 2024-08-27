@@ -27,6 +27,7 @@ const DragBlockShape = (entities: any, { input }: SystemArgs) => {
 
     if (hasBlockShapeId(blockId)) {
       entities["state"].selected = blockId;
+      entities[blockId].isDragged = true;
     }
   }
 
@@ -60,6 +61,7 @@ const DropBlockShape = (entities: any, { input, dispatch }: SystemArgs) => {
       }
 
       entities["state"].selected = "";
+      entities[blockId].isDragged = false;
       entities["shadow"].spaces = [];
     }
   }
@@ -91,7 +93,7 @@ const TargetSpaceByShape = (entities: any, { input }: SystemArgs) => {
     const block = entities[blockId];
 
     const centeredCoordinates = block.shape
-      .map((fn: any) => fn(block.x, block.y))
+      .map((fn: any) => fn(block.x, block.y, BLOCK_SIZE))
       .map((c: { x: number, y: number }) => { return { x: c.x - BOARD_COORDINATES.x, y: c.y - BOARD_COORDINATES.y } });
 
     for (let i = 0; i < spaces.length; i++) {
@@ -305,7 +307,7 @@ const GameOver = (entities: any, { events, dispatch }: SystemArgs) => {
         }
 
         const centeredCoordinates = blockShape.shape
-          .map((fn: any) => fn(refSpace.x + (BLOCK_SIZE / 2), refSpace.y + (BLOCK_SIZE / 2)));
+          .map((fn: any) => fn(refSpace.x + (BLOCK_SIZE / 2), refSpace.y + (BLOCK_SIZE / 2), BLOCK_SIZE));
 
         for (const space of nonFilledSpaces) {
           let spaceCenterX = space.x + (BLOCK_SIZE / 2);
