@@ -161,6 +161,7 @@ function ScorePanel(props: any) {
     <div
       style={{ 
         color: "white",
+        fontFamily: "fantasy",
         fontSize: "xxx-large",
         textAlign: "center",
         padding: 20
