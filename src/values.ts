@@ -1,6 +1,6 @@
 import { BlockConfig } from "./types";
 
-const BOARD_COORDINATES = { x: 50, y: 50 };
+const BOARD_COORDINATES = { x: 50, y: 100 };
 
 const BLOCKS_PER_LINE = 8;
 

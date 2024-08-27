@@ -157,7 +157,20 @@ function ScorePreviewHighlight(props: any) {
 }
 
 function ScorePanel(props: any) {
-  return <div style={{ color: "white" }}>score: {props.score}</div>
+  return (
+    <div
+      style={{ 
+        color: "white",
+        fontSize: "xxx-large",
+        textAlign: "center",
+        padding: 20
+      }}
+    >
+      {props.score}
+    </div>
+  );
+
+
 }
 
 export { BlockShape, Board, ScorePanel, TargetSpaceShadow, ScorePreviewHighlight };
