@@ -10,7 +10,9 @@ function Board(props: any) {
   const commonStyle = (x: number, y: number): CSSProperties => {
     return {
       position: "absolute",
-      border: "solid 1px black",
+      borderWidth: "1px",
+      borderStyle: "solid",
+      borderColor: "black",
       userSelect: "none",
       left: x,
       top: y,
@@ -31,10 +33,12 @@ function Board(props: any) {
       width: BLOCK_SIZE - 20,
       height: BLOCK_SIZE - 20,
       backgroundColor: "#3D60E2",
-      borderTop: "10px solid #82ABFA",
-      borderBottom: "10px solid #21358E",
-      borderLeft: "10px solid #446BF4",
-      borderRight: "10px solid #284FC8"
+      borderWidth: "10px",
+      borderStyle: "solid",
+      borderTopColor: "#82ABFA",
+      borderBottomColor: "#21358E",
+      borderLeftColor: "#446BF4",
+      borderRightColor: "#284FC8"
     };
   };
 
@@ -67,8 +71,8 @@ function Board(props: any) {
 }
 
 function BlockShape(props: any) {
-  const size = props.isDragged ? BLOCK_SIZE - 20 : BLOCK_SIZE - 20 - 10;
-  const blockSize = props.isDragged ? BLOCK_SIZE : BLOCK_SIZE - 10;
+  const size = props.isDragged ? BLOCK_SIZE - 20 : BLOCK_SIZE - 20 - 9;
+  const blockSize = props.isDragged ? BLOCK_SIZE : BLOCK_SIZE - 20;
   return (
     <>
       {props.shape.map((fn: (x: number, y: number, size: number) => { x: number, y: number }, key: number) => {
@@ -89,10 +93,12 @@ function BlockShape(props: any) {
               height: size,
               userSelect: "none",
               backgroundColor: "#3D60E2",
-              borderTop: "10px solid #82ABFA",
-              borderBottom: "10px solid #21358E",
-              borderLeft: "10px solid #446BF4",
-              borderRight: "10px solid #284FC8"
+              borderStyle: "solid",
+              borderWidth: props.isDragged ? "10px" : "5px",
+              borderTopColor: "#82ABFA",
+              borderBottomColor: "#21358E",
+              borderLeftColor: "#446BF4",
+              borderRightColor: "#284FC8"
             }}
           />
         );
