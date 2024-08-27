@@ -35,6 +35,7 @@ function Board(props: any) {
       backgroundColor: "#3D60E2",
       borderWidth: "10px",
       borderStyle: "solid",
+      borderColor: "none",
       borderTopColor: "#82ABFA",
       borderBottomColor: "#21358E",
       borderLeftColor: "#446BF4",
