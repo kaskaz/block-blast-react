@@ -11,17 +11,17 @@ const BLOCK_SIZE = 50;
 const SHAPES: BlockConfig[] = [
   {
     id: "shape1",
-    initialX: 95,
+    initialX: 83.33,
     initialY: 600
   },
   {
     id: "shape2",
-    initialX: 255,
+    initialX: 250,
     initialY: 600
   },
   {
     id: "shape3",
-    initialX: 415,
+    initialX: 416.66,
     initialY: 600
   }
 ];

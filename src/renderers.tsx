@@ -74,6 +74,34 @@ function Board(props: any) {
 function BlockShape(props: any) {
   const size = props.isDragged ? BLOCK_SIZE - 20 : BLOCK_SIZE - 20 - 9;
   const blockSize = props.isDragged ? BLOCK_SIZE : BLOCK_SIZE - 20;
+
+  const coordinates = props.shape.map((fn: (x: number, y: number, size: number) => { x: number, y: number }) => fn(props.x, props.y, blockSize));
+
+  let xOffset = 0;
+  let yOffset = 0;
+
+  if (!props.isDragged) {
+    const xMin = coordinates
+      .map((c: { x: number, y: number }) => c.x)
+      .reduce((res: number, curr: number) => res < curr ? res : curr, coordinates[0].x);
+    const xMax = coordinates
+      .map((c: { x: number, y: number }) => c.x)
+      .reduce((res: number, curr: number) => res > curr ? res : curr, coordinates[0].x);
+
+    const yMin = coordinates
+      .map((c: { x: number, y: number }) => c.y)
+      .reduce((res: number, curr: number) => res < curr ? res : curr, coordinates[0].y);
+    const yMax = coordinates
+      .map((c: { x: number, y: number }) => c.y)
+      .reduce((res: number, curr: number) => res > curr ? res : curr, coordinates[0].y);
+
+    const xCenter = xMin + (((xMax + size) - xMin) / 2);
+    const yCenter = yMin + (((yMax + size) - yMin) / 2);
+
+    xOffset = props.initialX - xCenter;
+    yOffset = props.initialY - yCenter;
+  }
+
   return (
     <>
       {props.shape.map((fn: (x: number, y: number, size: number) => { x: number, y: number }, key: number) => {
@@ -87,8 +115,8 @@ function BlockShape(props: any) {
             style={{
               display: props.available ? 'inline' : 'none',
               position: "absolute",
-              left: x,
-              top: y,
+              left: x + xOffset,
+              top: y + yOffset,
               zIndex: ZINDEX_OF_SHAPE,
               width: size,
               height: size,

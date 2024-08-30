@@ -139,6 +139,8 @@ const NextLevel = (entities: any, { events, dispatch }: SystemArgs) => {
       entities[shape.id].shape = BLOCK_SHAPES[Math.floor(Math.random() * BLOCK_SHAPES.length)];
       entities[shape.id].x = shape.initialX;
       entities[shape.id].y = shape.initialY;
+      entities[shape.id].initialX = shape.initialX;
+      entities[shape.id].initialY = shape.initialY;
       entities[shape.id].available = true
     });
   }

@@ -52,6 +52,8 @@ function App() {
       id: config.id,
       x: config.initialX,
       y: config.initialY,
+      initialX: config.initialX,
+      initialY: config.initialY,
       shape: randomizeBlockShape(),
       selected: false,
       isDragged: false,
@@ -109,7 +111,7 @@ function App() {
       />
       <GameEngine
         ref={gameEngineRef}
-        style={{ width: 500, height: 600, backgroundColor: "blue" }}
+        style={{ width: 500, height: 700, backgroundColor: "blue" }}
         systems={[DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, ScorePreview, GameOver]}
         entities={entities()}
         onEvent={handleEvent}
