@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import { BLOCK_SIZE } from "./values";
+import { ShapeFunction } from "./types";
 
 const ZINDEX_OF_SHAPE = 3;
 const ZINDEX_OF_SHADOW = 2;
@@ -75,7 +76,7 @@ function BlockShape(props: any) {
   const size = props.isDragged ? BLOCK_SIZE - 20 : BLOCK_SIZE - 20 - 9;
   const blockSize = props.isDragged ? BLOCK_SIZE : BLOCK_SIZE - 20;
 
-  const coordinates = props.shape.map((fn: (x: number, y: number, size: number) => { x: number, y: number }) => fn(props.x, props.y, blockSize));
+  const coordinates = props.shape.map((fn: ShapeFunction) => fn(props.x, props.y, blockSize));
 
   let xOffset = 0;
   let yOffset = 0;
@@ -104,7 +105,7 @@ function BlockShape(props: any) {
 
   return (
     <>
-      {props.shape.map((fn: (x: number, y: number, size: number) => { x: number, y: number }, key: number) => {
+      {props.shape.map((fn: ShapeFunction, key: number) => {
         const coordinates = fn(props.x, props.y, blockSize);
         const x = coordinates.x - size / 2;
         const y = coordinates.y - size / 2;

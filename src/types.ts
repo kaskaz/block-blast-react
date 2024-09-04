@@ -19,4 +19,6 @@ type State = {
   filledRowsAndColumns: number
 }
 
-export type { BlockConfig, Space, State };
+type ShapeFunction = (x: number, y: number, size: number) => { x: number, y: number };
+
+export type { BlockConfig, Space, State, ShapeFunction };
