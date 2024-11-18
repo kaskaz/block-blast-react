@@ -38,9 +38,10 @@ function GameOverPanel({ show, onRestart }: { show: boolean, onRestart: () => vo
           fontFamily: 'fantasy',
           fontSize: 'medium',
           backgroundColor: '#82ABFA',
+          color: '#21358E',
           border: 'none',
           borderRadius: '2px',
-          padding: '4px 6px' 
+          padding: '4px 6px'
         }}
         onClick={() => onRestart()}
       >
