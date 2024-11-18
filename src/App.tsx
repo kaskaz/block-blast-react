@@ -127,14 +127,19 @@ function App() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row'
+      }}
+    >
       <GameOverPanel
         show={showGameOver}
         onRestart={handleRestart}
       />
       <GameEngine
         ref={gameEngineRef}
-        style={{ width: 500, height: 700, backgroundColor: "blue" }}
+        style={{ width: 500, height: 700 }}
         systems={[DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, NextLevel, Score, ScorePreview, GameOver]}
         entities={entities()}
         onEvent={handleEvent}
