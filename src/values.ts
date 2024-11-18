@@ -1,27 +1,40 @@
 import { BlockConfig } from "./types";
 
-const BOARD_COORDINATES = { x: 50, y: 100 };
-
 const BLOCKS_PER_LINE = 8;
 
 const BLOCKS_PER_COLUMNS = 8;
 
 const BLOCK_SIZE = 50;
 
+const BOARD_COORDINATES = { 
+  x: (window.document.body.clientWidth / 2) - (BLOCK_SIZE * (BLOCKS_PER_LINE / 2)), 
+  y: 100 
+};
+
+const GAMEOVER_PANEL_SIZE = {
+  width: 150,
+  heigth: 150
+};
+
+const GAMEOVER_PANEL_COORDINATES = {
+  x: BOARD_COORDINATES.x + (BLOCK_SIZE * (BLOCKS_PER_LINE / 2)) - (GAMEOVER_PANEL_SIZE.width / 2),
+  y: BOARD_COORDINATES.y + (BLOCK_SIZE * (BLOCKS_PER_LINE / 2)) - (GAMEOVER_PANEL_SIZE.heigth / 2)
+};
+
 const SHAPES: BlockConfig[] = [
   {
     id: "shape1",
-    initialX: 83.33,
+    initialX: (window.document.body.clientWidth / 2) - (BLOCK_SIZE * (BLOCKS_PER_LINE / 2)),
     initialY: 600
   },
   {
     id: "shape2",
-    initialX: 250,
+    initialX: (window.document.body.clientWidth / 2),
     initialY: 600
   },
   {
     id: "shape3",
-    initialX: 416.66,
+    initialX: (window.document.body.clientWidth / 2) + (BLOCK_SIZE * (BLOCKS_PER_LINE / 2)),
     initialY: 600
   }
 ];
@@ -270,4 +283,4 @@ const BLOCK_SHAPES = [
   ]
 ];
 
-export { BOARD_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, SHAPES, BLOCK_SIZE, BLOCK_SHAPES };
+export { BOARD_COORDINATES, GAMEOVER_PANEL_SIZE, GAMEOVER_PANEL_COORDINATES, BLOCKS_PER_LINE, BLOCKS_PER_COLUMNS, SHAPES, BLOCK_SIZE, BLOCK_SHAPES };

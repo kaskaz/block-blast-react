@@ -1,7 +1,7 @@
 import { GameEngine } from 'react-game-engine';
 import { BlockShape, Board, ScorePanel, ScorePreviewHighlight, TargetSpaceShadow } from "./renderers";
 import { NextLevel, Score, ScorePreview, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver, EVENT } from "./systems";
-import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from './values';
+import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, GAMEOVER_PANEL_COORDINATES, GAMEOVER_PANEL_SIZE, SHAPES } from './values';
 import { BlockConfig, Space } from './types';
 import { useRef, useState } from 'react';
 
@@ -11,19 +11,41 @@ function GameOverPanel({ show, onRestart }: { show: boolean, onRestart: () => vo
       style={{
         display: show ? 'flex' : 'none',
         flexDirection: "column",
+        justifyContent: 'space-evenly',
         position: "absolute",
         zIndex: 1000,
-        left: 200,
-        top: 200,
-        width: "100px",
-        height: "100px",
-        backgroundColor: "black"
+        left: GAMEOVER_PANEL_COORDINATES.x,
+        top: GAMEOVER_PANEL_COORDINATES.y,
+        width: GAMEOVER_PANEL_SIZE.width,
+        height: GAMEOVER_PANEL_SIZE.heigth,
+        borderRadius: 5,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
       }}
     >
-      <p style={{ color: "white", textAlign: "center" }}>
+      <p style={{
+        color: "white",
+        textAlign: "center",
+        fontFamily: 'fantasy',
+        fontSize: 'x-large',
+        margin: 0
+      }}>
         Game Over
       </p>
-      <button onClick={() => onRestart()}>restart</button>
+      <button
+        style={{
+          width: '80%',
+          alignSelf: 'center',
+          fontFamily: 'fantasy',
+          fontSize: 'medium',
+          backgroundColor: '#82ABFA',
+          border: 'none',
+          borderRadius: '2px',
+          padding: '4px 6px' 
+        }}
+        onClick={() => onRestart()}
+      >
+        restart
+      </button>
     </div>
   );
 }
@@ -71,7 +93,7 @@ function App() {
       shape3: initializeBlockShape(SHAPES[2]),
       shadow: { spaces: [], renderer: <TargetSpaceShadow /> },
       preview: { spaces: [], renderer: <ScorePreviewHighlight /> },
-      scorePanel: { x: 100, y: 10, score: 0, renderer: <ScorePanel /> }
+      scorePanel: { score: 0, renderer: <ScorePanel /> }
     };
   }
 
@@ -104,7 +126,7 @@ function App() {
   }
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
       <GameOverPanel
         show={showGameOver}
         onRestart={handleRestart}
@@ -117,7 +139,7 @@ function App() {
         onEvent={handleEvent}
         running={running}
       />
-    </>
+    </div>
   );
 }
 
