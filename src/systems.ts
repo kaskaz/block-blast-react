@@ -1,5 +1,5 @@
 import { ShapeFunction, Space, State } from "./types";
-import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SHAPES } from "./values";
+import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SCORE_EMPTY_BOARD, SHAPES } from "./values";
 
 type SystemArgs = {
   input: any[]
@@ -217,6 +217,7 @@ const Score = (entities: any, { events, dispatch }: SystemArgs) => {
   }
 
   const filledLines = [], filledColumns = [];
+  let emptyBoardScore = SCORE_EMPTY_BOARD;
 
   // find filled columns and lines
   for (let column = 1; column <= BLOCKS_PER_COLUMNS; column++) {
@@ -262,6 +263,20 @@ const Score = (entities: any, { events, dispatch }: SystemArgs) => {
     }
   });
 
+  // check if board was left empty
+  if (filledColumns.length > 0 || filledLines.length > 0) {
+    for (let line = 1; line <= BLOCKS_PER_LINE; line++) {
+      for (let column = 1; column <= BLOCKS_PER_COLUMNS; column++) {
+        if (entities["board"].spaces.get(`${column}${line}`).occupied) {
+          emptyBoardScore = 0;
+          break;
+        }
+      }
+    }
+  } else {
+    emptyBoardScore = 0;
+  }
+
   // score 
   (entities["state"] as State).filledRowsAndColumns += filledColumns.length + filledLines.length;
   (entities["state"] as State).score += (entities["state"] as State).lastBlocksFilled
@@ -269,6 +284,8 @@ const Score = (entities: any, { events, dispatch }: SystemArgs) => {
   if (filledColumns.length > 0 || filledLines.length > 0) {
     (entities["state"] as State).score += 10 * (entities["state"] as State).filledRowsAndColumns;
   }
+
+  (entities["state"] as State).score += emptyBoardScore;
 
   entities["scorePanel"].score = (entities["state"] as State).score;
   (entities["state"] as State).lastBlocksFilled = 0;
