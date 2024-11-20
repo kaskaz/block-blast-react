@@ -1,7 +1,7 @@
 import { GameEngine } from 'react-game-engine';
 import { BlockShape, Board, ScorePanel, ScorePreviewHighlight, TargetSpaceShadow } from "./renderers";
 import { NextLevel, Score, ScorePreview, DragBlockShape, DropBlockShape, MoveBlockShape, TargetSpaceByShape, GameOver, EVENT } from "./systems";
-import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, GAMEOVER_PANEL_COORDINATES, GAMEOVER_PANEL_SIZE, SHAPES } from './values';
+import { BLOCK_COLORS, BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, GAMEOVER_PANEL_COORDINATES, GAMEOVER_PANEL_SIZE, SHAPES } from './values';
 import { BlockConfig, Space } from './types';
 import { useRef, useState } from 'react';
 
@@ -70,6 +70,8 @@ function App() {
 
   const randomizeBlockShape = () => BLOCK_SHAPES[Math.floor(Math.random() * BLOCK_SHAPES.length)];
 
+  const randomizeBlockColor = () => BLOCK_COLORS[Math.floor(Math.random() * BLOCK_COLORS.length)];
+
   const initializeBlockShape = (config: BlockConfig) => {
     return {
       id: config.id,
@@ -78,6 +80,7 @@ function App() {
       initialX: config.initialX,
       initialY: config.initialY,
       shape: randomizeBlockShape(),
+      colors: randomizeBlockColor(),
       selected: false,
       isDragged: false,
       available: true,

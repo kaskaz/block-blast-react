@@ -122,13 +122,13 @@ function BlockShape(props: any) {
               width: size,
               height: size,
               userSelect: "none",
-              backgroundColor: "#3D60E2",
+              backgroundColor: props.colors.center,
               borderStyle: "solid",
               borderWidth: props.isDragged ? "10px" : "5px",
-              borderTopColor: "#82ABFA",
-              borderBottomColor: "#21358E",
-              borderLeftColor: "#446BF4",
-              borderRightColor: "#284FC8"
+              borderTopColor: props.colors.top,
+              borderBottomColor: props.colors.bottom,
+              borderLeftColor: props.colors.left,
+              borderRightColor: props.colors.right
             }}
           />
         );

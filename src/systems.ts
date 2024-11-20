@@ -1,5 +1,5 @@
 import { ShapeFunction, Space, State } from "./types";
-import { BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SCORE_EMPTY_BOARD, SHAPES } from "./values";
+import { BLOCK_COLORS, BLOCK_SHAPES, BLOCK_SIZE, BLOCKS_PER_COLUMNS, BLOCKS_PER_LINE, BOARD_COORDINATES, SCORE_EMPTY_BOARD, SHAPES } from "./values";
 
 type SystemArgs = {
   input: any[]
@@ -137,6 +137,7 @@ const NextLevel = (entities: any, { events, dispatch }: SystemArgs) => {
   if (areAllUnavailable) {
     SHAPES.forEach(shape => {
       entities[shape.id].shape = BLOCK_SHAPES[Math.floor(Math.random() * BLOCK_SHAPES.length)];
+      entities[shape.id].colors = BLOCK_COLORS[Math.floor(Math.random() * BLOCK_COLORS.length)];
       entities[shape.id].x = shape.initialX;
       entities[shape.id].y = shape.initialY;
       entities[shape.id].initialX = shape.initialX;
