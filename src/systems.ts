@@ -47,6 +47,7 @@ const DropBlockShape = (entities: any, { input, dispatch }: SystemArgs) => {
 
           if (space) {
             space.occupied = true;
+            space.colors = entities["state"].spacesOnTargetColors;
             (entities["state"] as State).lastBlocksFilled++;
           }
 
@@ -63,6 +64,7 @@ const DropBlockShape = (entities: any, { input, dispatch }: SystemArgs) => {
       entities["state"].selected = "";
       entities[blockId].isDragged = false;
       entities["shadow"].spaces = [];
+      entities["shadow"].colors = {};
     }
   }
 
@@ -88,6 +90,7 @@ const TargetSpaceByShape = (entities: any, { input }: SystemArgs) => {
   const spaces = [...entities["board"].spaces.entries()];
   const spacesOnTarget = [];
   let isOnTarget = false;
+  let colors = {};
 
   if (hasBlockShapeId(blockId)) {
     const block = entities[blockId];
@@ -112,13 +115,17 @@ const TargetSpaceByShape = (entities: any, { input }: SystemArgs) => {
     }
 
     isOnTarget = spacesOnTarget.length == centeredCoordinates.length;
+    colors = isOnTarget ? block.colors : colors;
   }
 
   entities["shadow"].spaces = isOnTarget ? spacesOnTarget
     .map(id => entities["board"].spaces.get(id))
     .map(space => { return { x: space.x + BOARD_COORDINATES.x, y: space.y + BOARD_COORDINATES.y } }) : [];
 
+  entities["shadow"].colors = colors;
+
   entities["state"].spacesOnTarget = isOnTarget ? spacesOnTarget : [];
+  entities["state"].spacesOnTargetColors = colors;
   entities["state"].isOnTarget = isOnTarget;
 
   return entities;
@@ -208,6 +215,7 @@ const ScorePreview = (entities: any, { input }: SystemArgs) => {
   }
 
   entities["preview"].spaces = previewSpaces;
+  entities["preview"].colors = entities["state"].spacesOnTargetColors;
 
   return entities;
 }

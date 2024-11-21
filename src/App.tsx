@@ -61,7 +61,15 @@ function App() {
 
     for (let column = 0; column < BLOCKS_PER_COLUMNS; column++) {
       for (let line = 0; line < BLOCKS_PER_LINE; line++) {
-        _spaces.set(`${column + 1}${line + 1}`, { x: column * BLOCK_SIZE, y: line * BLOCK_SIZE, occupied: false });
+        _spaces.set(
+          `${column + 1}${line + 1}`,
+          {
+            x: column * BLOCK_SIZE,
+            y: line * BLOCK_SIZE,
+            occupied: false,
+            colors: { center: '', top: '', bottom: '', right: '', left: '' }
+          }
+        );
       }
     }
 
@@ -95,8 +103,8 @@ function App() {
       shape1: initializeBlockShape(SHAPES[0]),
       shape2: initializeBlockShape(SHAPES[1]),
       shape3: initializeBlockShape(SHAPES[2]),
-      shadow: { spaces: [], renderer: <TargetSpaceShadow /> },
-      preview: { spaces: [], renderer: <ScorePreviewHighlight /> },
+      shadow: { spaces: [], colors: {}, renderer: <TargetSpaceShadow /> },
+      preview: { spaces: [], colors: {}, renderer: <ScorePreviewHighlight /> },
       scorePanel: { score: 0, renderer: <ScorePanel /> }
     };
   }

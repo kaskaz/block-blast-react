@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { BLOCK_SIZE } from "./values";
-import { ShapeFunction } from "./types";
+import { Colors, ShapeFunction } from "./types";
 
 const ZINDEX_OF_SHAPE = 3;
 const ZINDEX_OF_SHADOW = 2;
@@ -29,18 +29,18 @@ function Board(props: any) {
     };
   };
 
-  const occupiedStyle = (): CSSProperties => {
+  const occupiedStyle = (colors: Colors): CSSProperties => {
     return {
       width: BLOCK_SIZE - 20,
       height: BLOCK_SIZE - 20,
-      backgroundColor: "#3D60E2",
       borderWidth: "10px",
       borderStyle: "solid",
       borderColor: "none",
-      borderTopColor: "#82ABFA",
-      borderBottomColor: "#21358E",
-      borderLeftColor: "#446BF4",
-      borderRightColor: "#284FC8"
+      backgroundColor: colors.center,
+      borderTopColor: colors.top,
+      borderBottomColor: colors.bottom,
+      borderLeftColor: colors.left,
+      borderRightColor: colors.right
     };
   };
 
@@ -56,7 +56,7 @@ function Board(props: any) {
       }}
     >
       {[...props.spaces.entries()].map(space => {
-        const finalStyle = space[1].occupied ? occupiedStyle() : freeStyle();
+        const finalStyle = space[1].occupied ? occupiedStyle(space[1].colors) : freeStyle();
 
         return (
           <div
@@ -152,11 +152,14 @@ function TargetSpaceShadow(props: any) {
               top: space.y,
               zIndex: ZINDEX_OF_SHADOW,
               userSelect: "none",
-              backgroundColor: "rgba(61, 96, 226, 0.2)",
-              borderTop: "10px solid rgba(130, 171, 250, 0.2)",
-              borderBottom: "10px solid rgba(33, 53, 142, 0.2)",
-              borderLeft: "10px solid rgba(68, 107, 244, 0.2)",
-              borderRight: "10px solid rgba(40, 79, 200, 0.2)",
+              opacity: 0.2,
+              borderStyle: "solid",
+              borderWidth: '10px',
+              backgroundColor: props.colors.center,
+              borderTopColor: props.colors.top,
+              borderBottomColor: props.colors.bottom,
+              borderLeftColor: props.colors.left,
+              borderRightColor: props.colors.right,
             }}
           />
         );
@@ -181,11 +184,13 @@ function ScorePreviewHighlight(props: any) {
               top: space.y,
               zIndex: ZINDEX_OF_PREVIEW,
               userSelect: "none",
-              backgroundColor: "#E87323",
-              borderTop: "10px solid #FFBF82",
-              borderBottom: "10px solid #994809",
-              borderLeft: "10px solid #FE8630",
-              borderRight: "10px solid #BD5E1A"
+              backgroundColor: props.colors.center,
+              borderTopColor: props.colors.top,
+              borderBottomColor: props.colors.bottom,
+              borderLeftColor: props.colors.left,
+              borderRightColor: props.colors.right,
+              borderStyle: 'solid',
+              borderWidth: '10px'
             }}
           />
         );
