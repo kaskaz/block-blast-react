@@ -12,6 +12,11 @@ type Colors = {
   left: string
 };
 
+type Coordinates = {
+  x: number
+  y: number
+}
+
 type Space = {
   x: number
   y: number
@@ -30,4 +35,4 @@ type State = {
 
 type ShapeFunction = (x: number, y: number, size: number) => { x: number, y: number };
 
-export type { BlockConfig, Colors, Space, State, ShapeFunction };
+export type { BlockConfig, Coordinates, Colors, Space, State, ShapeFunction };

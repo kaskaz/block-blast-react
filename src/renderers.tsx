@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { BLOCK_SIZE } from "./values";
-import { Colors, ShapeFunction } from "./types";
+import { Colors, Coordinates, ShapeFunction } from "./types";
 
 const ZINDEX_OF_SHAPE = 3;
 const ZINDEX_OF_SHADOW = 2;
@@ -72,6 +72,18 @@ function Board(props: any) {
   );
 }
 
+function minAxisValueOf<K extends keyof Coordinates>(coordinates: Coordinates[], key: K): Coordinates[K] {
+  return coordinates
+      .map(c => c[key])
+      .reduce((res, curr) => res < curr ? res : curr, coordinates[0][key]);
+}
+
+function maxAxisValueOf<K extends keyof Coordinates>(coordinates: Coordinates[], key: K): Coordinates[K] {
+  return coordinates
+      .map(c => c[key])
+      .reduce((res, curr) => res > curr ? res : curr, coordinates[0][key]);
+}
+
 function BlockShape(props: any) {
   const size = props.isDragged ? BLOCK_SIZE - 20 : BLOCK_SIZE - 20 - 9;
   const blockSize = props.isDragged ? BLOCK_SIZE : BLOCK_SIZE - 20;
@@ -82,19 +94,11 @@ function BlockShape(props: any) {
   let yOffset = 0;
 
   if (!props.isDragged) {
-    const xMin = coordinates
-      .map((c: { x: number, y: number }) => c.x)
-      .reduce((res: number, curr: number) => res < curr ? res : curr, coordinates[0].x);
-    const xMax = coordinates
-      .map((c: { x: number, y: number }) => c.x)
-      .reduce((res: number, curr: number) => res > curr ? res : curr, coordinates[0].x);
+    const xMin = minAxisValueOf(coordinates, "x");
+    const xMax = maxAxisValueOf(coordinates, "x");
 
-    const yMin = coordinates
-      .map((c: { x: number, y: number }) => c.y)
-      .reduce((res: number, curr: number) => res < curr ? res : curr, coordinates[0].y);
-    const yMax = coordinates
-      .map((c: { x: number, y: number }) => c.y)
-      .reduce((res: number, curr: number) => res > curr ? res : curr, coordinates[0].y);
+    const yMin = minAxisValueOf(coordinates, "y");
+    const yMax = maxAxisValueOf(coordinates, "y");
 
     const xCenter = xMin + (((xMax + size) - xMin) / 2);
     const yCenter = yMin + (((yMax + size) - yMin) / 2);
