@@ -100,8 +100,8 @@ function BlockShape(props: any) {
     const yMin = minAxisValueOf(coordinates, "y");
     const yMax = maxAxisValueOf(coordinates, "y");
 
-    const xCenter = xMin + (((xMax + size) - xMin) / 2);
-    const yCenter = yMin + (((yMax + size) - yMin) / 2);
+    const xCenter = xMin + ((xMax - xMin) / 2);
+    const yCenter = yMin + ((yMax - yMin) / 2);
 
     xOffset = props.initialX - xCenter;
     yOffset = props.initialY - yCenter;
